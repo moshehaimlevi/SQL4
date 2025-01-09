@@ -1,0 +1,136 @@
+################################################## SECTION NUMBER 1:
+
+CREATE TABLE courses (
+    course_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    topic TEXT NOT NULL,
+    hours INTEGER NOT NULL
+);
+
+CREATE TABLE students (
+    student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL
+);
+
+CREATE TABLE grades (
+    student_id INTEGER NOT NULL,
+    course_id INTEGER NOT NULL,
+    grade INTEGER NOT NULL,
+	PRIMARY KEY(student_id, course_id)
+	FOREIGN KEY (student_id) REFERENCES students (student_id)
+	FOREIGN KEY (course_id) REFERENCES courses (course_id)
+	);
+
+
+##################################################################### SECTION NUMBER 2:
+INSERT INTO courses (topic, hours) VALUES ('Economy', 5);
+INSERT INTO courses (topic, hours) VALUES ('Biology', 5);
+INSERT INTO courses (topic, hours) VALUES ('Chemistry', 4);
+
+
+INSERT INTO students (name, email) VALUES ('Daniel','Daniel23@gmail.com');
+INSERT INTO students (name, email) VALUES ('Thomas', 'Thomas1321@gmail.com');
+INSERT INTO students (name, email) VALUES ('Michaela','michaela4455@gmail.com');
+
+INSERT INTO grades (student_id, course_id, grade) VALUES (1, 1, 90),
+    (1, 2, 85),
+    (1, 3, 76),
+    (2, 1, 75),
+    (2, 2, 94),
+    (2, 3, 65),
+    (3, 1, 93),
+    (3, 2, 82),
+    (3, 3, 86);
+
+
+
+################################################### SECTION NUMBER 3:
+SELECT c.course_id, c.topic, AVG(g.grade) AS average_grade
+FROM courses c
+JOIN grades g ON c.course_id = g.course_id
+GROUP BY c.course_id, c.topic
+ORDER BY c.course_id;
+
+##################################################### SECTION NUMBER 4:
+
+import sqlite3
+
+def connect_db(hw_solution1):
+    my_conn = sqlite3.connect(hw_solution1) 
+    my_conn.row_factory = sqlite3.Row 
+    my_cursor = my_conn.cursor()  
+    return my_conn, my_cursor
+
+def read_query(my_cursor, query):
+    my_cursor.execute(query)
+    rows = my_cursor.fetchall()
+    result_list = [list(row) for row in rows]
+    result_dict = [dict(row) for row in rows]
+    result_tuple = [tuple(row) for row in rows]
+    return result_tuple
+
+import sqlitelib
+
+db_name: str = "hw_solution1.db"  
+
+conn, cursor = sqlitelib.connect_db(db_name)
+
+query = "SELECT * FROM courses;"
+
+courses = read_query(cursor, query)
+
+print(courses)
+
+conn.close()
+
+
+################################################# SECTION NUMBER 5:
+import sqlite3
+
+def connect_db(hw_solution1):
+    my_conn = sqlite3.connect(hw_solution1) 
+    my_conn.row_factory = sqlite3.Row  
+    my_cursor = my_conn.cursor()  
+    return my_conn, my_cursor
+
+def update_query(my_cursor, my_conn, query, param):
+    my_cursor.execute(query, param) 
+    my_conn.commit() 
+
+def read_query(my_cursor, query):
+    my_cursor.execute(query)  
+    rows = my_cursor.fetchall()  
+    result_list = [list(row) for row in rows]  
+    result_dict = [dict(row) for row in rows] 
+    result_tuple = [tuple(row) for row in rows]  
+    return result_tuple  
+
+db_name = "hw_solution1.db"
+
+conn, cursor = connect_db(db_name)
+
+new_course_name = input("What's the name of the course? ")
+new_course_hours = int(input('Enter hours of the new course: '))
+
+update_query(cursor, conn, "INSERT INTO courses (topic, hours) VALUES (?, ?)", 
+(new_course_name, new_course_hours))
+
+new_course = read_query(cursor, "SELECT * from courses")
+for item in new_course:
+    print(item)
+
+conn.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
