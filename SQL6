@@ -1,0 +1,53 @@
+############################################################################ SECTION A:
+SELECT courses.course_name AS NAME_OF_COURSE, lecturers.first_name AS first_name, 
+lecturers.last_name AS last_name
+FROM COURSES INNER JOIN lecturers ON Lecturers.lecturer_id = Courses.lecturer_id; 
+
+############################################################################ SECTION B:
+SELECT Courses.course_name AS course_subject, Lecturers.first_name AS first_name, Lecturers.last_name AS last_name
+FROM courses
+LEFT JOIN lecturers ON lecturers.lecturer_id = courses.lecturer_id
+WHERE lecturers.lecturer_id IS NULL;
+
+############################################################################ SECTION C:
+
+SELECT courses.course_name AS NAME_OF_COURSE, lecturers.first_name AS first_name, 
+lecturers.last_name AS last_name
+FROM COURSES LEFT JOIN lecturers ON Lecturers.lecturer_id = Courses.lecturer_id; 
+
+############################################################################ SECTION D:
+
+SELECT lecturers.first_name AS first_name, lecturers.last_name AS last_name, 
+courses.course_name AS NAME_OF_COURSE
+FROM lecturers INNER JOIN courses ON Lecturers.lecturer_id = Courses.lecturer_id; 
+
+############################################################################ SECTION E:
+SELECT Courses.course_name AS course_subject, Lecturers.first_name AS first_name, Lecturers.last_name AS last_name
+FROM lecturers
+LEFT JOIN courses ON lecturers.lecturer_id = courses.lecturer_id
+WHERE courses.lecturer_id IS NULL;
+
+########################################################################### SECTION F:
+SELECT lecturers.first_name AS first_name, lecturers.last_name AS last_name,
+courses.course_name AS NAME_OF_COURSE
+FROM lecturers LEFT JOIN courses ON Lecturers.lecturer_id = Courses.lecturer_id; 
+
+########################################################################### SECTION G:
+SELECT courses.course_name AS NAME_OF_COURSE, lecturers.first_name AS first_name, 
+lecturers.last_name AS last_name
+FROM COURSES FULL JOIN lecturers ON Lecturers.lecturer_id = Courses.lecturer_id; 
+
+########################################################################## SECTION HS:
+SELECT lecturers.first_name AS first_name, lecturers.last_name AS last_name, 
+courses.course_name AS course_subject
+FROM lecturers CROSS JOIN courses;
+
+
+
+
+
+
+
+
+
+
