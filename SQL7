@@ -1,0 +1,172 @@
+################################# SECTION NUMBER 1:
+CREATE TABLE eurovision_songs (
+    competition_year INTEGER,            -- Year of the competition
+    hosting_country TEXT,                -- Hosting country for the competition 	
+    winning_country_name TEXT,           -- Name of the winning country
+    country_language TEXT,               -- Main language of the winning country 
+    song_name TEXT,                      -- Name of the winning song
+    song_language TEXT,                  -- Language of the winning song 
+    country_capital TEXT,                -- Capital city of the winning country 
+    singer TEXT                          -- Singer(s) of the song
+);
+
+INSERT INTO eurovision_songs ################## THE GIVEN INFO IN THE HOMEWORK #####################
+VALUES 
+(2024, 'Sweden', 'Switzerland', 'German', 'The Code', 'English', 'Bern', 'Nemo');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2023, 'United Kingdom', 'Sweden', 'Swedish', 'Tattoo', 'English', 'Stockholm', 'Loreen');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2022, 'Italy', 'Ukraine', 'Ukrainian', 'Stefania', 'Ukrainian', 'Kyiv', 'Kalush Orchestra');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2021, 'Netherlands', 'Italy', 'Italian', 'Zitti e buoni', 'Italian', 'Rome', 'Måneskin');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2019, 'Israel', 'Netherlands', 'Dutch', 'Arcade', 'English', 'Amsterdam', 'Duncan Laurence');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2018, 'Portugal', 'Israel', 'Hebrew', 'Toy', 'English', 'Jerusalem', 'Netta');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2017, 'Ukraine', 'Portugal', 'Portuguese', 'Amar pelos dois', 'Portuguese', 'Lisbon', 'Salvador Sobral');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2016, 'Sweden', 'Ukraine', 'Ukrainian', '1944', 'English/Ukrainian', 'Kyiv', 'Jamala');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2015, 'Austria', 'Sweden', 'Swedish', 'Heroes', 'English', 'Stockholm', 'Måns Zelmerlöw');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2014, 'Denmark', 'Austria', 'German', 'Rise Like a Phoenix', 'English', 'Vienna', 'Conchita Wurst');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2013, 'Sweden', 'Denmark', 'Danish', 'Only Teardrops', 'English', 'Copenhagen', 'Emmelie de Forest');
+
+INSERT INTO eurovision_songs 
+VALUES 
+(2012, 'Azerbaijan', 'Sweden', 'Swedish', 'Euphoria', 'English', 'Stockholm', 'Loreen');
+
+
+############################################################################################
+CREATE TABLE countries (
+    country_id INTEGER PRIMARY KEY,  
+    country_name TEXT NOT NULL UNIQUE,  
+    country_language TEXT NOT NULL, 
+    country_capital TEXT NOT NULL  
+);
+
+INSERT INTO countries (country_name, country_language, country_capital)
+VALUES 
+('Sweden', 'Swedish', 'Stockholm'),
+('Switzerland', 'German', 'Bern'),
+('United Kingdom', 'English', 'London'),
+('Ukraine', 'Ukrainian', 'Kyiv'),
+('Italy', 'Italian', 'Rome'),
+('Netherlands', 'Dutch', 'Amsterdam'),
+('Israel', 'Hebrew', 'Jerusalem'),
+('Portugal', 'Portuguese', 'Lisbon'),
+('Austria', 'German', 'Vienna'),
+('Denmark', 'Danish', 'Copenhagen'),
+('Azerbaijan', 'Azerbaijani', 'Baku');
+
+########################################################
+CREATE TABLE singers (
+    singer_id INTEGER PRIMARY KEY,  
+    singer_name TEXT NOT NULL 
+);
+
+INSERT INTO singers (singer_name)
+VALUES 
+('Nemo'),
+('Loreen'),
+('Kalush Orchestra'),
+('Måneskin'),
+('Duncan Laurence'),
+('Netta'),
+('Salvador Sobral'),
+('Jamala'),
+('Måns Zelmerlöw'),
+('Conchita Wurst'),
+('Emmelie de Forest'); 
+
+############################################
+CREATE TABLE songs (
+    song_id INTEGER PRIMARY KEY,  
+    song_name TEXT NOT NULL,  
+    song_language TEXT NOT NULL,  
+    country_id INTEGER NOT NULL,  
+    FOREIGN KEY (country_id) REFERENCES countries(country_id)  
+);
+
+INSERT INTO songs (song_name, song_language, country_id)
+VALUES 
+('The Code', 'English', (SELECT country_id FROM countries WHERE country_name = 'Switzerland')),
+('Tattoo', 'English', (SELECT country_id FROM countries WHERE country_name = 'Sweden')),
+('Stefania', 'Ukrainian', (SELECT country_id FROM countries WHERE country_name = 'Ukraine')),
+('Zitti e buoni', 'Italian', (SELECT country_id FROM countries WHERE country_name = 'Italy')),
+('Arcade', 'English', (SELECT country_id FROM countries WHERE country_name = 'Netherlands')),
+('Toy', 'English', (SELECT country_id FROM countries WHERE country_name = 'Israel')),
+('Amar pelos dois', 'Portuguese', (SELECT country_id FROM countries WHERE country_name = 'Portugal')),
+('1944', 'English/Ukrainian', (SELECT country_id FROM countries WHERE country_name = 'Ukraine')),
+('Heroes', 'English', (SELECT country_id FROM countries WHERE country_name = 'Sweden')),
+('Rise Like a Phoenix', 'English', (SELECT country_id FROM countries WHERE country_name = 'Austria')),
+('Only Teardrops', 'English', (SELECT country_id FROM countries WHERE country_name = 'Denmark')),
+('Euphoria', 'English', (SELECT country_id FROM countries WHERE country_name = 'Sweden'));
+
+###################################################
+CREATE TABLE eurovision_competitions (
+    competition_year INTEGER PRIMARY KEY, 
+    hosting_country TEXT NOT NULL,       
+    winning_country TEXT NOT NULL,       
+    song_name TEXT NOT NULL              
+);
+
+INSERT INTO eurovision_competitions (competition_year, hosting_country, winning_country, song_name)
+VALUES 
+(2024, 'Sweden', 'Switzerland', 'The Code'),
+(2023, 'United Kingdom', 'Sweden', 'Tattoo'),
+(2022, 'Italy', 'Ukraine', 'Stefania'),
+(2021, 'Netherlands', 'Italy', 'Zitti e buoni'),
+(2019, 'Israel', 'Netherlands', 'Arcade'),
+(2018, 'Portugal', 'Israel', 'Toy'),
+(2017, 'Ukraine', 'Portugal', 'Amar pelos dois'),
+(2016, 'Sweden', 'Ukraine', '1944'),
+(2015, 'Austria', 'Sweden', 'Heroes'),
+(2014, 'Denmark', 'Austria', 'Rise Like a Phoenix'),
+(2013, 'Sweden', 'Denmark', 'Only Teardrops'),
+(2012, 'Azerbaijan', 'Sweden', 'Euphoria');
+
+############################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
